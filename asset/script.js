@@ -59,7 +59,7 @@ var quizQuestions =[
 ]
 
 
-// Display timer 
+// Display timer & may change var names for this
 
 // set time for 3 mins 
 var time = 180 ;  
@@ -91,3 +91,17 @@ var startingTime = setInterval(function(){
 
     }
 }, 1000); 
+
+var viewScorePage = document
+var startPage = document.getElementById("start_page"); 
+
+var quizPAge = document.getElementById("quiz_page"); 
+
+
+var resultPage = document.getElementById("result_page"); 
+
+var scorePage = document.getElementById("score_page"); 
+
+var startBtn = document.getElementById("start_button"); 
+
+

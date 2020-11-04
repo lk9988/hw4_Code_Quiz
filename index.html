@@ -2,44 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel ="stylesheet" href="./asset/reset.css">
-    <link rel ="stylesheet" href="./asset/style.css">
-    <title>Quiz Time</title>
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel = "stylesheet" href="./asset/style.css">
+
+    <title>Document</title>
 </head>
 <body>
     <header>
-        <div id="view_high_score"></div>View High Score
-        <div id="timer" style=" ">Time:<span id = "game_timer"></span></div>
-        <!-- <div id="timer" style="visibility: hidden;">Time:</div> -->
-        
+        <!-- link to High-Score-Page  & Game Time Display  -->
+        <a id = "high-score-link" class = "hide" href="#">View High Score</a>
+        <div id = "time-display" class = "time hide "> Time : 
+            <span id="time-elapsed" class = "time hide"> 0 
 
+            </span>
+        </div>
     </header>
+
     <main>
         <div class="container">
-            <div id="start_page"> 
-                <h1>
-                    Let's Start Coding Game ! 
-                </h1>
-
-                <h3 id= "start_text"> rule explained...</h3>
-                <button id = "start_button"> Let's Play </button>
-
-            </div>   
-
-            <div id="quiz_page">
-                <h2 id= "quiz_display"></h2>
-                <div id="anser_display"></div>
-                
+            <!-- main contents display / it will change to first-page/question page / last-page -->
+            <div id="question">Questions</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class ="btn">Answer 1</button>
+                <button class ="btn">Answer 2</button>
+                <button class ="btn">Answer 3</button>
+                <button class ="btn">Answer 4</button>
             </div>
+        </div>
+        <div class="controls">
+            <!-- control buttons // it will change to play again button  -->
+            <button id = "start-btn" class ="start-btn btn">Start</button>
+            <button id = "next-btn" class ="next-btn btn hide">Next</button>
+        </div>
+        
 
-
-
+        <div id="final-page" class = "final-page hide">
+            <!-- final page display user score and view high score link  -->
+            <h2 id = "final-score"> 0 </h2>
+            <form class ="form-container">
+                <h3 id="final-text">Enter your initial to save your score ! </h3> 
+                <input type="text" id="username" placeholder="Enter you initial here">
+                <button class = "btn" id = "save-score-button">Save
+                    
+                </button>
+            <button id ="btn" class="high-score btn"> View High Score </button>
         </div>
     </main>
-    
-    <script src = './asset/script.js'></script>
-    
+    <script src = './asset/script2.js'></script>
 </body>
 </html>
-
