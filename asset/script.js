@@ -3,8 +3,8 @@
 var quizQuestions =[
 
 { 
-    title: "sdlkfjsdlfkjdsflksdjf", 
-    choices: ["answer1" , "answer2" , "answer3" , "answer4"],
+    title: "When Harry first met Quirrekk in the Leaky Cauldron before starting Hogwarts, Quirrell says he needs to pick up a book on ...?", 
+    choices: ["Werewolves" , "Vampires" , "Acromantula" , "Zombies"],
     answer: "answer3"
 },
 { 
