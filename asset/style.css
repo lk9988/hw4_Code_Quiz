@@ -5,9 +5,20 @@
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
-
+body {
+  padding: 0;
+  margin: 0;
+}
 .hide {
   display: none;
+}
+header {
+  height: 20vh;
+  width: 100vw;
+  background-color: #cde3e3;
+  padding: 2em;
+  display: inline-flex;
+  justify-content: space-between;
 }
 
 main {
@@ -15,7 +26,7 @@ main {
   margin: 0;
   display: flex;
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
   justify-content: center;
   align-items: center;
   background-color: #cde3e3;
@@ -30,7 +41,8 @@ main.wrong {
   background-color: #f00d28;
 }
 /* main page card-like */
-.main-page {
+.main-page,
+.final-page {
   width: 800px;
   max-width: 80%;
   background-color: white;
@@ -79,6 +91,6 @@ main.wrong {
   align-items: center;
 }
 
-.hide {
-  display: none;
+.final-page {
+  text-align: center;
 }

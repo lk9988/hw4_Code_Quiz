@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href="./asset/style.css">
 
     <title>Document</title>
@@ -11,17 +11,18 @@
     <header>
         <!-- link to High-Score-Page  & Game Time Display  -->
         <a id = "high-score-link" class = "link" href="#">View High Score</a>
-        <div id = "time-display" class = "time  "> Time : 
-            <span id="time-elapsed" class = "time "> 0 
+        <span id = "time-display" class = "timer"> Time : 
+            <span id="time-elapsed" class = "time hide"> 0 
 
             </span>
-        </div>
+        </span>
     </header>
 
     <main class = "">
 
         <div id="main-page" class = "main-page">
-            <div class="container">
+           <!-- only start button will show  -->
+            <div id ="question-container" class = "hide">
             <!-- main contents display / it will change to first-page/question page / last-page -->
                 <div id="question">Questions</div>
                 <div id="answer-buttons" class="btn-grid">
