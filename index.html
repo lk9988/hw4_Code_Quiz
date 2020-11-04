@@ -10,30 +10,35 @@
 <body>
     <header>
         <!-- link to High-Score-Page  & Game Time Display  -->
-        <a id = "high-score-link" class = "hide" href="#">View High Score</a>
-        <div id = "time-display" class = "time hide "> Time : 
-            <span id="time-elapsed" class = "time hide"> 0 
+        <a id = "high-score-link" class = "link" href="#">View High Score</a>
+        <div id = "time-display" class = "time  "> Time : 
+            <span id="time-elapsed" class = "time "> 0 
 
             </span>
         </div>
     </header>
 
-    <main>
-        <div class="container">
+    <main class = "">
+
+        <div id="main-page" class = "main-page">
+            <div class="container">
             <!-- main contents display / it will change to first-page/question page / last-page -->
-            <div id="question">Questions</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class ="btn">Answer 1</button>
-                <button class ="btn">Answer 2</button>
-                <button class ="btn">Answer 3</button>
-                <button class ="btn">Answer 4</button>
+                <div id="question">Questions</div>
+                <div id="answer-buttons" class="btn-grid">
+                    <button class ="btn">Answer 1</button>
+                    <button class ="btn">Answer 2</button>
+                    <button class ="btn">Answer 3</button>
+                    <button class ="btn">Answer 4</button>
+                </div>
+            </div>
+            <div class="controls">
+                <!-- control buttons // it will change to play again button  -->
+                <button id = "start-btn" class ="start-btn btn">Start</button>
+                <button id = "next-btn" class ="next-btn hide btn ">Next</button>
             </div>
         </div>
-        <div class="controls">
-            <!-- control buttons // it will change to play again button  -->
-            <button id = "start-btn" class ="start-btn btn">Start</button>
-            <button id = "next-btn" class ="next-btn btn hide">Next</button>
-        </div>
+
+       
         
 
         <div id="final-page" class = "final-page hide">

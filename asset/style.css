@@ -1,0 +1,84 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.hide {
+  display: none;
+}
+
+main {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #cde3e3;
+}
+
+/* background color changing when answer is selected  */
+main.correct {
+  background-color: #05c049;
+}
+
+main.wrong {
+  background-color: #f00d28;
+}
+/* main page card-like */
+.main-page {
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+/* answer button */
+.btn-grid {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  border: 1px solid black;
+  background-color: #ddd8d8;
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+}
+
+.btn:hover {
+  /* border-color: black; */
+  color: #eaba87;
+}
+
+.btn.correct {
+  background-color: #05c049;
+  color: black;
+}
+.btn.wrong {
+  background-color: #f00d28;
+  color: black;
+}
+.start-btn,
+.next-btn {
+  font-weight: bold;
+  padding: 10px 50px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
