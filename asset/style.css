@@ -33,13 +33,13 @@ main {
 }
 
 /* background color changing when answer is selected  */
-main.correct {
+/* body.correct {
   background-color: #05c049;
 }
 
-main.wrong {
+body.wrong {
   background-color: #f00d28;
-}
+} */
 /* main page card-like */
 .main-page,
 .final-page {

@@ -1,4 +1,4 @@
-var questions =[
+const questions =[
 
     { 
         question: "When Harry first met Quirrell in the Leaky Cauldron before starting Hogwarts, Quirrell says he needs to pick up a book on ...?", 
@@ -84,7 +84,7 @@ var questions =[
         question: "In his DADA O.W.L exam, what did harry get a bonus point for doing?", 
         answers: [
             {text: "A perfect Bat Bogey Hex", correct: false},
-            {text: "Disarming the examiner with Expelliarmus" correct: false},
+            {text: "Disarming the examiner with Expelliarmus", correct: false},
             {text: "Banishing a Boggart", correct: false},
             {text: "Casting a Patronus", correct: true},
 
@@ -104,48 +104,183 @@ var questions =[
 
     ];
 
-var startBtn = document.getElementById('start-btn'); 
-var nextBtn = document.getElementById('next-btn'); 
-var questionContainerEl = document.getElementById('question-container'); 
+const startBtn = document.getElementById('start-btn'); 
+const nextBtn = document.getElementById('next-btn'); 
+const questionContainerEl = document.getElementById('question-container'); 
+const questionEl = document.getElementById('question'); 
+const answerBtnEL = document.getElementById('answer-buttons'); 
+const openingEl = document.getElementById('opening-text'); 
 
-
-
-var randomQuestions;
-var currentQuestionIndex; 
+let randomQuestions;
+let currentQuestionIndex; 
 // inital value would be undefined 
 
 
 startBtn.addEventListener('click', startQuiz);
-// adding click event to startQuiz
-
+// adding click event to startbutton 
+nextBtn.addEventListener( 'click', () => { 
+    currentQuestionIndex++; 
+    setNextQuestion(); 
+}
+)
+// by clicking the next button, currentQuestionIndex increment by 1 and  start setNextQuestion function 
 
 function startQuiz(){
-    console.log('started');
+   
+    openingEl.classList.add('hide'); 
+    // removing opening text div 
 
-    //initial screen nothing but with start button only 
+
     startBtn.classList.add('hide');
-
+    // hide start button 
     
-    // need to remove hide from timer 
-
-    //timer start
-
+    // **************** need to romove hide from timer 
+    // ****************timer start
 
 
-    // adding class name hide to start-button so when it is click, it will disappear
+
+   
 
     randomQuestions = questions.sort( () => Math.random() - .5); 
-    // randomizing questions order appear on screen 
+    // taking 'questions' array and shuffeling questions 
 
     currentQuestionIndex = 0; 
-    // starting with first question
+    // current question displaying will be set to index 0 in array. 
 
     questionContainerEl.classList.remove('hide'); 
-    //start-button disappear and questions page appears 
+    //showing Q/A element 
 
     setNextQuestion(); 
+    //staring setNextQuestion function
     
 
 };
 
+function setNextQuestion() {
 
+    resetState(); 
+    //clear current Q/A 
+
+    showQuestion(randomQuestions[currentQuestionIndex]); 
+    // show question from random question array 
+    console.log (randomQuestions); 
+
+
+}; 
+
+
+function showQuestion (question) {
+    // question from questions array 
+    console.log(question); 
+
+    questionEl.innerText = question.question; 
+    // setting innertext of questiondiv with question from array 
+    // console.log(question); 
+
+    question.answers.forEach( answer => {
+        //  looping thru each answers from 'questions array'
+        const button = document.createElement('button'); 
+        // creating button element for each answer 
+        button.innerText = answer.text ; 
+        // setting innertext of each answer with text 
+        button.classList.add('btn'); 
+        // add btn class to button
+        console.log(answer); 
+        //answer is answers array for each question 
+        // console.log(answers, 'answers'); 
+        // error showing answers is not defined 
+
+
+        //checking if answer it correct or not (before selecting. this is labeling)
+
+        if (answer.correct) { 
+            button.dataset.correct = answer.correct; 
+            // settinh data attribute for answer with correct=true set 
+            // it will be appear as 'data-correct ="true" in html
+        }
+           
+        button.addEventListener('click', selectAnswer ); 
+            // add eventlistener to new buttons that is created with answer text
+
+        answerBtnEL.appendChild(button); 
+            // appeding buttons to its parent div 
+            
+
+
+        
+    });
+
+}; 
+
+function resetState (){
+
+
+    // clearStatusClass(document.body)
+    // // clearing background color after answer is selected and show green / red 
+    // ***************** removing above
+    nextBtn.classList.add('hide') 
+    // hide next button
+    while (answerBtnEL.firstChild) 
+    {answerBtnEL.removeChild(answerBtnEL.firstChild)}
+    // While answerButtonElement has a firstchild/button/ then removes the firstchild, and if no more first child, then stop
+    // only removes existing button from acutal HTML 
+    
+    
+    }; 
+
+function selectAnswer (event) {
+   
+    const selectedBtn = event.target; 
+    
+    const correct = selectedBtn.dataset.correct; 
+    // correct is  selectedBTN that has data-correct attribute which only correct answer button has it 
+
+    // setStatusClass(document.body, correct); 
+    // *************** remove this 
+
+    Array.from(answerBtnEL.children).forEach(button => {
+    
+        setStatusClass(button, button.dataset.correct)
+        // looping thru answer buttons and setting class based on 'data-correct' attribute
+        // this makes buttons to change its color based if selcted answer is correct/wrong
+
+    }); 
+
+    if (randomQuestions.length > currentQuestionIndex + 1 ) { 
+        //checking if there is more questions left 
+        nextBtn.classList.remove ( 'hide' ); 
+    } else { 
+        // if there is no more question left 
+        startBtn.innerText = 'Restart'; 
+        startBtn.classList.remove ( 'hide' ); 
+        // **************************************************
+        // need to be replaced with showScore function
+
+
+    }
+
+
+
+
+}; 
+
+
+// function that add/remove answer status ' correct' or 'wrong' 
+function setStatusClass(element, correct) {
+    console.log (element); 
+    clearStatusClass(element)
+    if (correct) { 
+        element.classList.add('correct')
+
+    }
+    else {
+        element.classList.add('wrong')
+    }
+}
+
+function clearStatusClass(element) { 
+    console.log (element)
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
+   
+}
