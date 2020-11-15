@@ -110,6 +110,7 @@ const questionContainerEl = document.getElementById('question-container');
 const questionEl = document.getElementById('question'); 
 const answerBtnEL = document.getElementById('answer-buttons'); 
 const openingEl = document.getElementById('opening-text'); 
+const gameTimer  = document.getElementById('game-timer'); 
 
 let randomQuestions;
 let currentQuestionIndex; 
@@ -135,8 +136,9 @@ function startQuiz(){
     // hide start button 
     
     // **************** need to romove hide from timer 
+    
     // ****************timer start
-
+    gameTimer.classList.remove('hide'); 
 
 
    
@@ -245,6 +247,7 @@ function selectAnswer (event) {
         // this makes buttons to change its color based if selcted answer is correct/wrong
 
     }); 
+    checkAnswer(); 
 
     if (randomQuestions.length > currentQuestionIndex + 1 ) { 
         //checking if there is more questions left 
@@ -255,26 +258,20 @@ function selectAnswer (event) {
         startBtn.classList.remove ( 'hide' ); 
         // **************************************************
         // need to be replaced with showScore function
-
-
     }
-
-
-
-
 }; 
 
 
 // function that add/remove answer status ' correct' or 'wrong' 
 function setStatusClass(element, correct) {
     console.log (element); 
-    clearStatusClass(element)
+    clearStatusClass(element); 
     if (correct) { 
-        element.classList.add('correct')
+        element.classList.add('correct'); 
 
     }
     else {
-        element.classList.add('wrong')
+        element.classList.add('wrong'); 
     }
 }
 
@@ -284,3 +281,39 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
    
 }
+// check if selected answer is wrong, subtract timer by 10 
+function checkAnswer ( element, correct ){
+    if ( !correct ) { 
+        time -=10; 
+    }
+}
+
+// need to add timer
+// need to add final score page 
+// localstorage 
+
+//***** timer  */
+let time = 180 ;  
+//initial time 
+let min = ""; 
+let sec = ""; 
+
+let startingTimer = setInterval(function(){
+
+
+    min = parseInt(time/60); 
+    sec = time % 60 ; 
+
+    document.getElementById("game-timer").innerHTML = min + ":" + sec ; 
+    //display time in min:sec format 
+    time --; 
+    // reduce by 1 sec 
+    if (time < 0 ) { 
+         // when timeout happends
+        clearInterval (startingTimer); 
+        //stop timer 
+        document.getElementById("game-timer").innerHTML = "timeout"
+        // display "timeout" message 
+    }
+}, 1000); 
+
