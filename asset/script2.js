@@ -113,6 +113,7 @@ const questionEl = document.getElementById('question');
 const answerBtnEL = document.getElementById('answer-buttons'); 
 const openingEl = document.getElementById('opening-text'); 
 const finalEl = document.getElementById('final-page'); 
+const scoreEl = document.getElementById('final-score'); 
 const gameTimer  = document.getElementById('game-timer'); 
 
 
@@ -258,7 +259,8 @@ function selectAnswer (event) {
         nextBtn.classList.remove ( 'hide' ); 
     } else { 
         // if there is no more question left 
-       endGame(); 
+        
+        endQuiz(); 
 
 
         // **************************************************
@@ -267,15 +269,26 @@ function selectAnswer (event) {
 }; 
 //  *********** need to create function for ENDGAME
 
-function endGame () {
+function endQuiz () {
+    clearInterval(startingTimer); 
+    //stop the timer 
     mainEl.classList.add('hide'); 
-
-    finalEl.classList.remove('hide'); 
+    //clear inside of card 
+     finalEl.classList.remove('hide'); 
+    //load final-page 
+    showScore(); 
     
 }
 
+//timeleft = score 
+let quizDuration = 0; 
 
-
+function showScore() { 
+    let score = time - quizDuration; 
+    scoreEl.innerText = score; 
+   console.log(score); 
+}
+// !!!!!!!!!! timeleft is 66 but score is 55 ... what is wrong ? 
 
 
 
@@ -325,11 +338,12 @@ let sec = "";
 let startingTimer = setInterval(function(){
 
 
-    min = parseInt(time/60); 
-    sec = time % 60 ; 
+    // min = parseInt(time/60); 
+    // sec = time % 60 ; 
 
-    document.getElementById("game-timer").innerHTML = min + ":" + sec ; 
-    //display time in min:sec format 
+    // document.getElementById("game-timer").innerHTML = min + ":" + sec ; 
+    document.getElementById("game-timer").innerHTML = time; 
+    //better without MIN:SEC format 
     time --; 
     // reduce by 1 sec 
     if (time < 0 ) { 
