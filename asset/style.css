@@ -94,3 +94,7 @@ body.wrong {
 .final-page {
   text-align: center;
 }
+
+.final-btn {
+  grid-template-columns: repeat(2, auto);
+}

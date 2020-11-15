@@ -103,14 +103,18 @@ const questions =[
     
 
     ];
-
+const mainEl = document.getElementById('main-page'); 
 const startBtn = document.getElementById('start-btn'); 
 const nextBtn = document.getElementById('next-btn'); 
+const highBtn = document.getElementById('highscore-btn'); 
+const restartBtn = document.getElementById('restart-btn'); 
 const questionContainerEl = document.getElementById('question-container'); 
 const questionEl = document.getElementById('question'); 
 const answerBtnEL = document.getElementById('answer-buttons'); 
 const openingEl = document.getElementById('opening-text'); 
+const finalEl = document.getElementById('final-page'); 
 const gameTimer  = document.getElementById('game-timer'); 
+
 
 let randomQuestions;
 let currentQuestionIndex; 
@@ -254,12 +258,32 @@ function selectAnswer (event) {
         nextBtn.classList.remove ( 'hide' ); 
     } else { 
         // if there is no more question left 
-        startBtn.innerText = 'Restart'; 
-        startBtn.classList.remove ( 'hide' ); 
+       endGame(); 
+
+
         // **************************************************
         // need to be replaced with showScore function
     }
 }; 
+//  *********** need to create function for ENDGAME
+
+function endGame () {
+    mainEl.classList.add('hide'); 
+
+    finalEl.classList.remove('hide'); 
+    
+}
+
+
+
+
+
+
+
+
+// clearing html and show score with 
+//'retake button' and 'view high score' button 
+
 
 
 // function that add/remove answer status ' correct' or 'wrong' 
@@ -288,7 +312,7 @@ function checkAnswer ( element, correct ){
     }
 }
 
-// need to add timer
+
 // need to add final score page 
 // localstorage 
 
