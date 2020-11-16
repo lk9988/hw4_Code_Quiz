@@ -53,12 +53,18 @@
             <form class ="form-container">
                 <h3 id="final-text">Enter your initial to save your score ! </h3> 
                 <input type="text" id="username" placeholder="Enter you initial here">
-                <button class = "btn" id = "save-score-button">Save</button>
+                <button class = "save btn" id = "save-score-button">Save</button>
                 <div id="final-buttons" class ="btn-grid final-btn">
                     <button id ="highscore-btn" class="high-score btn"> View High Score </button>
                     <button id = "restart-btn" class ="start-btn btn">Restart</button>
                 </div>
             
+        </div>
+        
+        <div id="high-score" class = "high-score-page hide">
+            <h3> High Scores</h3>
+            <ul id = "high-score-list" >
+            </ul>
         </div>
     </main>
     <script src = './asset/script2.js'></script>

@@ -42,7 +42,8 @@ body.wrong {
 } */
 /* main page card-like */
 .main-page,
-.final-page {
+.final-page,
+.high-score-page {
   width: 800px;
   max-width: 80%;
   background-color: white;
