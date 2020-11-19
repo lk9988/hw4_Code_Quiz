@@ -1,20 +1,17 @@
-
 const mainEl = document.getElementById('main-page'); 
 const startBtn = document.getElementById('start-btn'); 
 const nextBtn = document.getElementById('next-btn'); 
 const highBtn = document.getElementById('highscore-btn'); 
-const saveBtn = document.getElementById('save-score-button'); 
+const saveBtn = document.getElementById("save-score-button"); 
 const restartBtn = document.getElementById('restart-btn'); 
-const restartBtnHigh = document.getElementById('restart-btn-high'); 
 const questionContainerEl = document.getElementById('question-container'); 
 const questionEl = document.getElementById('question'); 
 const answerBtnEL = document.getElementById('answer-buttons'); 
 const openingEl = document.getElementById('opening-text'); 
 const finalEl = document.getElementById('final-page'); 
-const scoreDisplay = document.getElementById('final-score'); 
-const gameTimerDisplay = document.getElementById('game-timer'); 
-const userInputEl = document.getElementById('username-input'); 
-const highScoreEl = document.getElementById('high-score'); 
+const scoreEl = document.getElementById('final-score'); 
+const gameTimer  = document.getElementById('game-timer'); 
+const userInputEl = document.getElementById('username'); 
 
 let randomQuestions;
 let currentQuestionIndex; 
@@ -23,17 +20,15 @@ let time = 180 ;
 //initial time 
 // let score = 0; 
 
-startBtn.addEventListener( 'click', startQuiz);
+startBtn.addEventListener( "click", startQuiz);
 // adding click event to startbutton 
-nextBtn.addEventListener( 'click', () => { 
+nextBtn.addEventListener( "click", () => { 
     currentQuestionIndex++; 
     setNextQuestion(); 
 })
 // by clicking the next button, currentQuestionIndex increment by 1 and  start setNextQuestion function 
 // saveBtn.addEventListener (); 
 
-restartBtn.addEventListener('click', startQuiz);
-restartBtnHigh.addEventListener('click', startQuiz);
 
 
 
@@ -43,7 +38,7 @@ function startQuiz(){
     // removing opening text div 
     startBtn.classList.add('hide');
     // hide start button 
-    gameTimerDisplay.classList.remove('hide'); 
+    gameTimer.classList.remove('hide'); 
     // remove hide from timer 
 
     randomQuestions = questions.sort( () => Math.random() - .5); 
@@ -161,11 +156,18 @@ function selectAnswer (event) {
 }; 
 function checkAnswer ( element, correct ){
     if ( !correct ) { 
-        time -= 10; 
+        time -=10; 
     }
+    // if not correct answer, subtract time by 10 
+    // if ( correct) { 
+    //     score += 10 }
+    //    else { time -= 10 }; 
+
+// maybe for fixing score = remainingtime problem 
+// for this let score = 0; -> as global var 
 
 }
-
+//  *********** need to create function for endQuiz
 
 function endQuiz () {
     clearInterval(startingTimer); 
@@ -178,15 +180,38 @@ function endQuiz () {
     
 }
 
+//timeleft = score 
+let quizDuration = 0; 
+
 function showScore() { 
-    let score = time; 
-    scoreDisplay.innerText = 'your score ' + score; 
+    let score = time - quizDuration; 
+    scoreEl.innerText = 'your score ' + score; 
    console.log(score); 
 }
 // !!!!!!!!!! timeleft is 66 but score is 55 ... what is wrong ? 
 
 
+// collecting userName and score and store 
+function submitUserInfo (){ 
+    
+    let userGameInfo = {
+        userName: userInputEl.value.trim(), 
+        score: finalEl.value
+    }; 
 
+    console.log('user', userGameInfo); 
+    if (userInputEl.value < 1 )
+    return; 
+    else { 
+        
+    
+
+    }
+    localStorage.setItem("userGameInfo", JSON.stringify(userGameInfo)); 
+
+}
+
+lastUser = JSON.parse(localStorage.getItem("userGameInfo"));
 
 
 
@@ -201,7 +226,7 @@ let startingTimer = setInterval(function(){
     //better without MIN:SEC format 
     time --; 
     // reduce by 1 sec 
-    if (time <= 0 ) { 
+    if (time < 0 ) { 
          // when timeout happends
         clearInterval (startingTimer); 
         //stop timer 
@@ -230,76 +255,7 @@ function setStatusClass(element, correct) {
 
 function clearStatusClass(element) { 
     // console.log (element) 
-    element.classList.remove('correct'); 
-    element.classList.remove('wrong'); 
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
    
 }
-
-// ****** or 
-
-// maybe for fixing score = remainingtime problem 
-// for this let score = 0; -> as global var 
-
-// need to add final score page 
-// localstorage 
-
-// const viewHighScoreEL = document.getElementById('high-score'); 
-const userNameEl = document.getElementById('usernames'); 
-const scoreEl = document.getElementById( 'scores' ); 
-
-let localUsers= []; 
-let userNameIndex = 0; 
-let scoreIndex = 0; 
-
-const leaderboard = JSON.parse( localStorage.getItem( 'leaderboard')) || []; 
-localUsers = localUsers.concat(leaderboard); 
-
-
-saveBtn.addEventListener('click', saveScore); 
-
-const viewHighScoreEL = document.getElementById('high-score-link'); 
-
-highBtn.addEventListener( 'click' , function(event){
-    event.preventDefault(); 
-    showHighScorePage(); 
-})
-
-viewHighScoreEL.addEventListener( 'click' , showHighScorePage); 
-
-function showHighScorePage() { 
-    mainEl.classList.add( 'hide' ); 
-    finalEl.classList.add( 'hide' ); 
-    highScoreEl.classList.remove( 'hide' ); 
-
-    localUsers.forEach( () => {
-        users = document.createElement( 'li' ); 
-        users.innerText = localUsers[userNameIndex].userId; 
-        userNameEl.appendChild(users); 
-        userNameIndex++; 
-
-        scores = document.createElement( 'li' ); 
-        scores.innerText = localUsers[scoreIndex].Score; 
-        scoreEl.appendChild(scores); 
-        scoreIndex++; 
-    }
-    )}
-
-
-function saveScore () { 
-    if ( !userInputEl ) return;  
-    else { 
-        let score = time;  
-        console.log (score); 
-        let userScore = { 
-            userId: userInputEl.value.trim().toUpperCase(), 
-            Score: score
-        }
-        leaderboard.push(userScore);  
-        leaderboard.sort( (a,b) => b.Score - a.Score ); 
-        leaderboard.splice(10); 
-        localStorage.setItem( 'leaderboard' , JSON.stringify(leaderboard)); 
-    }
-
-}
-
-
