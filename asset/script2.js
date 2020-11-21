@@ -38,7 +38,8 @@ nextBtn.addEventListener( 'click', () => {
 restartBtn.addEventListener('click', restartQuiz);
 restartBtnHigh.addEventListener('click', restartQuiz);
 
-function restartQuiz () { 
+function restartQuiz (event) { 
+    event.preventDefault(); 
     window.location.reload(); 
 }
 
