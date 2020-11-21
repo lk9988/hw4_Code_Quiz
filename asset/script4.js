@@ -13,6 +13,10 @@ const scoreEl = document.getElementById('final-score');
 const gameTimer  = document.getElementById('game-timer'); 
 const userInputEl = document.getElementById('username'); 
 
+//********** NEED TO CLEANUP CODE & ORDER  */
+// ********* SECOND RESTART BUTTON STILL NOT WORKING... SOMETHING IS MISSING 
+
+
 let randomQuestions;
 let currentQuestionIndex; 
 // inital value would be undefined 

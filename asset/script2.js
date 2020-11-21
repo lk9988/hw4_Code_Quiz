@@ -16,6 +16,9 @@ const gameTimerDisplay = document.getElementById('game-timer');
 const userInputEl = document.getElementById('username-input'); 
 const highScoreEl = document.getElementById('high-score'); 
 
+//********** NEED TO CLEANUP CODE & ORDER  */
+// ********* SECOND RESTART BUTTON STILL NOT WORKING... SOMETHING IS MISSING 
+
 let randomQuestions;
 let currentQuestionIndex; 
 // inital value would be undefined 
@@ -32,12 +35,16 @@ nextBtn.addEventListener( 'click', () => {
 // by clicking the next button, currentQuestionIndex increment by 1 and  start setNextQuestion function 
 // saveBtn.addEventListener (); 
 
-restartBtn.addEventListener('click', startQuiz);
-restartBtnHigh.addEventListener('click', startQuiz);
+restartBtn.addEventListener('click', restartQuiz);
+restartBtnHigh.addEventListener('click', restartQuiz);
 
+function restartQuiz () { 
+    window.location.reload(); 
+}
 
 
 function startQuiz(){
+    time = 180; 
    
     openingEl.classList.add('hide'); 
     // removing opening text div 
@@ -170,6 +177,7 @@ function checkAnswer ( element, correct ){
 function endQuiz () {
     clearInterval(startingTimer); 
     //stop the timer 
+    gameTimerDisplay.classList.add('hide'); 
     mainEl.classList.add('hide'); 
     //clear inside of card 
     finalEl.classList.remove('hide'); 
