@@ -1,4 +1,4 @@
-
+// ***** Declaring VAR for HTML elements 
 const mainEl = document.getElementById('main-page'); 
 const startBtn = document.getElementById('start-btn'); 
 const nextBtn = document.getElementById('next-btn'); 
@@ -16,34 +16,51 @@ const gameTimerDisplay = document.getElementById('game-timer');
 const userInputEl = document.getElementById('username-input'); 
 const highScoreEl = document.getElementById('high-score'); 
 
-//********** NEED TO CLEANUP CODE & ORDER  */
-// ********* SECOND RESTART BUTTON STILL NOT WORKING... SOMETHING IS MISSING 
-
+// ***** Declaring VAR with undefined value 
 let randomQuestions;
 let currentQuestionIndex; 
-// inital value would be undefined 
 let time = 180 ;  
-//initial time 
-// let score = 0; 
 
+// ***** setting Starting time INTERVAL 
+let startingTimer = setInterval(function(){
+
+    document.getElementById("game-timer").innerHTML = time; 
+    //better without MIN:SEC format 
+    time --; 
+    // reduce by 1 sec 
+    if (time <= 0 ) { 
+         // when timeout happends
+        clearInterval (startingTimer); 
+        //stop timer 
+        document.getElementById("game-timer").innerHTML = "timeout"
+        // display "timeout" message 
+    }
+}, 1000); 
+
+
+
+// ***** ADDEVENTListenrs to Buttons 
 startBtn.addEventListener( 'click', startQuiz);
 // adding click event to startbutton 
 nextBtn.addEventListener( 'click', () => { 
     currentQuestionIndex++; 
     setNextQuestion(); 
 })
-// by clicking the next button, currentQuestionIndex increment by 1 and  start setNextQuestion function 
-// saveBtn.addEventListener (); 
-
 restartBtn.addEventListener('click', restartQuiz);
 restartBtnHigh.addEventListener('click', restartQuiz);
+saveBtn.addEventListener('click', saveScore); 
+highBtn.addEventListener( 'click' , function(event){
+    event.preventDefault(); 
+    showHighScorePage(); 
+})
 
+// ***** FUNCTION to RELOAD starting page 
 function restartQuiz (event) { 
     event.preventDefault(); 
     window.location.reload(); 
 }
 
-
+// ***** FUNCTION to start quiz 
 function startQuiz(){
     time = 180; 
    
@@ -64,26 +81,22 @@ function startQuiz(){
     setNextQuestion(); 
     //staring setNextQuestion function
     
-
 };
 
-function setNextQuestion() {
 
+// ***** FUNCTION to setting the next questions 
+function setNextQuestion() {
     resetState(); 
     //clear current Q/A 
-
     showQuestion(randomQuestions[currentQuestionIndex]); 
     // show question from random question array 
     // console.log (randomQuestions); 
-
-
 }; 
 
-
+// ***** FUNCTION to redering quesitons to HTML page 
 function showQuestion (question) {
     // question from questions array 
     // console.log(question); 
-
     questionEl.innerText = question.question; 
     // setting innertext of questiondiv with question from array 
     // console.log(question); 
@@ -103,7 +116,6 @@ function showQuestion (question) {
 
 
         //checking if answer it correct or not (before selecting. this is labeling)
-
         if (answer.correct) { 
             button.dataset.correct = answer.correct; 
             // settinh data attribute for answer with correct=true set 
@@ -115,47 +127,38 @@ function showQuestion (question) {
 
         answerBtnEL.appendChild(button); 
             // appeding buttons to its parent div 
-            
-
-
-        
     });
 
 }; 
 
+
+
+// ***** FUNCTION for clearing HTML so new questions can render 
 function resetState (){
 
-
-    // clearStatusClass(document.body)
-    // // clearing background color after answer is selected and show green / red 
-    // ***************** removing above
     nextBtn.classList.add('hide') 
     // hide next button
     while (answerBtnEL.firstChild) 
     {answerBtnEL.removeChild(answerBtnEL.firstChild)}
     // While answerButtonElement has a firstchild/button/ then removes the firstchild, and if no more first child, then stop
     // only removes existing button from acutal HTML 
-    
-    
-    }; 
+}; 
 
+
+// ***** FUNCTION for setting data attr for each answers 
 function selectAnswer (event) {
    
     const selectedBtn = event.target; 
-    
     const correct = selectedBtn.dataset.correct; 
     // correct is  selectedBTN that has data-correct attribute which only correct answer button has it 
-
-    // setStatusClass(document.body, correct); 
-    // *************** remove this 
 
     Array.from(answerBtnEL.children).forEach(button => {
     
         setStatusClass(button, button.dataset.correct)
         // looping thru answer buttons and setting class based on 'data-correct' attribute
         // this makes buttons to change its color based if selcted answer is correct/wrong
-
     }); 
+    
     checkAnswer(); 
 
     if (randomQuestions.length > currentQuestionIndex + 1 ) { 
@@ -164,17 +167,36 @@ function selectAnswer (event) {
     } else { 
         // if there is no more question left 
         endQuiz(); }
-    
-    
 }; 
+
+// ***** FUNCTION  for adding answer button status ' correct' or 'wrong' 
+function setStatusClass(element, correct) {
+    // console.log (element); 
+    clearStatusClass(element); 
+    if (correct) { 
+        element.classList.add('correct'); 
+    }
+    else {
+        element.classList.add('wrong'); 
+    }
+}
+
+// ***** FUNCTION for removing answer button status ' correct' or 'wrong' 
+function clearStatusClass(element) { 
+    // console.log (element) 
+    element.classList.remove('correct'); 
+    element.classList.remove('wrong'); 
+}
+
+
+// ***** FUNCTION for comparing data attr of answer buttons with clicked answer button
 function checkAnswer ( element, correct ){
     if ( !correct ) { 
         time -= 10; 
     }
-
 }
 
-
+// ***** FUNCTION for moving to final-page after last question 
 function endQuiz () {
     clearInterval(startingTimer); 
     //stop the timer 
@@ -184,118 +206,64 @@ function endQuiz () {
     finalEl.classList.remove('hide'); 
     //load final-page 
     showScore(); 
-    
 }
 
+// ***** FUNCTION for converting time to score and rendering to HTML 
 function showScore() { 
     let score = time; 
     scoreDisplay.innerText = 'your score ' + score; 
-   console.log(score); 
-}
-// !!!!!!!!!! timeleft is 66 but score is 55 ... what is wrong ? 
-
-
-
-
-
-
-let startingTimer = setInterval(function(){
-
-
-    // min = parseInt(time/60); 
-    // sec = time % 60 ; 
-
-    // document.getElementById("game-timer").innerHTML = min + ":" + sec ; 
-    document.getElementById("game-timer").innerHTML = time; 
-    //better without MIN:SEC format 
-    time --; 
-    // reduce by 1 sec 
-    if (time <= 0 ) { 
-         // when timeout happends
-        clearInterval (startingTimer); 
-        //stop timer 
-        document.getElementById("game-timer").innerHTML = "timeout"
-        // display "timeout" message 
-    }
-}, 1000); 
-
-// clearing html and show score with 
-//'retake button' and 'view high score' button 
-
-
-
-// function that add/remove answer status ' correct' or 'wrong' 
-function setStatusClass(element, correct) {
-    // console.log (element); 
-    clearStatusClass(element); 
-    if (correct) { 
-        element.classList.add('correct'); 
-
-    }
-    else {
-        element.classList.add('wrong'); 
-    }
+//    console.log(score); 
 }
 
-function clearStatusClass(element) { 
-    // console.log (element) 
-    element.classList.remove('correct'); 
-    element.classList.remove('wrong'); 
-   
-}
 
-// ****** or 
-
-// maybe for fixing score = remainingtime problem 
-// for this let score = 0; -> as global var 
-
-// need to add final score page 
-// localstorage 
-
-// const viewHighScoreEL = document.getElementById('high-score'); 
+// ***** SETTING for LocalStorage 
+const viewHighScoreEL = document.getElementById('high-score-link'); 
 const userNameEl = document.getElementById('usernames'); 
 const scoreEl = document.getElementById( 'scores' ); 
-
 let localUsers= []; 
 let userNameIndex = 0; 
 let scoreIndex = 0; 
-
+// getting leaderboard from localstorage or start with empty array if none 
 const leaderboard = JSON.parse( localStorage.getItem( 'leaderboard')) || []; 
+// merging localuser array with leaderboard arry and return a new array 
 localUsers = localUsers.concat(leaderboard); 
 
 
-saveBtn.addEventListener('click', saveScore); 
-
-const viewHighScoreEL = document.getElementById('high-score-link'); 
-
-highBtn.addEventListener( 'click' , function(event){
-    event.preventDefault(); 
-    showHighScorePage(); 
-})
-
+// add evenlistener to button 
 viewHighScoreEL.addEventListener( 'click' , showHighScorePage); 
 
+
+// ***** FUNCTION getting stored data from localstorage and rendering to HTML page 
 function showHighScorePage() { 
     mainEl.classList.add( 'hide' ); 
     finalEl.classList.add( 'hide' ); 
     highScoreEl.classList.remove( 'hide' ); 
+    //clear inside of card 
 
     localUsers.forEach( () => {
         users = document.createElement( 'li' ); 
         users.innerText = localUsers[userNameIndex].userId; 
         userNameEl.appendChild(users); 
         userNameIndex++; 
+        // foreach localusers in array, add li to html element & text with userinput
+        // & append it to ol html element & index increase by 1 
 
         scores = document.createElement( 'li' ); 
-        scores.innerText = localUsers[scoreIndex].Score; 
+        scores.innerText = localUsers[scoreIndex].scoreId; 
         scoreEl.appendChild(scores); 
         scoreIndex++; 
+        // foreach localusers scores in array, add li to html element & text with userinput
+        // & append it to ol html element & index increase by 1 
     }
     )}
 
-
-function saveScore () { 
-    if ( !userInputEl ) return;  
+// ***** FUNCTION saving current user's score to localstorage and sorting top scores 
+function saveScore (event) { 
+    
+    if ( !userInputEl ) {
+        event.preventDefault(); 
+    } 
+    // preventing empty value saved 
     else { 
         let score = time;  
         console.log (score); 
@@ -303,12 +271,17 @@ function saveScore () {
             userId: userInputEl.value.trim().toUpperCase(), 
             Score: score
         }
+        // console.log(score); 
         leaderboard.push(userScore);  
+        // push userScore to leaderboard array 
         leaderboard.sort( (a,b) => b.Score - a.Score ); 
-        leaderboard.splice(10); 
+        // and sort by comparing value 
+        leaderboard.splice(5); 
+        // removing elements  in leaderboad array from index 5
+        // this will limit to 5 sets to be stored in leaderboard array
         localStorage.setItem( 'leaderboard' , JSON.stringify(leaderboard)); 
+        // setting leaderboard to loacalstorage 
     }
-
 }
 
 
