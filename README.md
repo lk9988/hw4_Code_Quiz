@@ -4,7 +4,7 @@
 
 - using Interval for timer
 - setting Object as var and retrive value
-- compare if retrived value is match with user selection
+- compare if retrived value matches with user selection
 - using localstorage to store and render
 
 ## Acceptance Criteria
@@ -27,6 +27,6 @@ THEN I can save my initials and score
 
 - https://lk9988.github.io/hw4_code_quiz/
 
-## credit
+## Credit
 
-- all Q/A is from WizardingWorld quiz. would change Q/A later for my own.
+- All Q/A is from WizardingWorld quiz. would change Q/A later for my own.
